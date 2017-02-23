@@ -38,8 +38,10 @@ namespace LetovSharepoint
 
         private void cbLists_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SP.List sel = collList.FirstOrDefault(x => x.Title == cbLists.Text);
-            dataGridView1.DataSource = sel;
+            //SP.List selectedList = collList.FirstOrDefault(x => x.Title == cbLists.Text);
+            DataTable dt = shp.LoadList(cbLists.Text);
+            dataGridView1.DataSource = dt;
+            dataGridView1.Update();
            
         }
     }
