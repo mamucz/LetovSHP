@@ -73,24 +73,13 @@ namespace LetovSharepoint
                 if (spList != null && spList.ItemCount > 0)
                 {
                     Microsoft.SharePoint.Client.CamlQuery camlQuery = new CamlQuery();
-                    camlQuery.ViewXml =
-                    @"<View>" +
-                    "<Query> " +
-                        "<Where>" +
-                            "<And>" +
-                                    "<IsNotNull><FieldRef Name='ID' /></IsNotNull>" +
-                                    "<Eq><FieldRef Name='ReqNo' /><Value Type='Text'>123</Value></Eq>" +
-                            "</And>" +
-                        "</Where>" +
-                    "</Query> " +
-                    "<ViewFields>" +
-                        "<FieldRef Name='ID' />" +
-                    "</ViewFields>" +      
-                    "</View>";
+                    camlQuery.ViewXml = @"<Query><Where><IsNotNull><FieldRef Name=""ID"" /></IsNotNull></Where></Query>";
+
 
                     SP.ListItemCollection listItems = spList.GetItems(camlQuery);
-                    clientContext.Load(listItems);
-                    clientContext.ExecuteQuery();
+                    clientContext.Load(listItems, items => items.Include(item => item["Od"], item => item["_x0076_xm2"],item => item["Trv_x00e1_n_x00ed_"], item => item["Obsah"], item => item["Nov_x00fd_Sloupec1"], item => item["_x010c_innost"], item => item["Author"], item => item["_x00da_kol"]));
+ 
+                     clientContext.ExecuteQuery();
 
                     if (listItems != null && listItems.Count > 0)
                     {
